@@ -1,0 +1,165 @@
+<mat-sidenav-container>
+    <mat-sidenav-content>
+        <mat-toolbar color="primary">
+            <!-- <div>
+                <button mat-icon-button [routerLink]="['/dashboard']" title="Dashboard">
+                    <mat-icon class="icon">dashboard</mat-icon>
+                </button>
+            </div> -->
+            <div fxLayout="row" fxLayoutAlign="space-between center" class="top-nav">
+                <span *ngxPermissionsOnly="['1','ALL']"><button mat-button [routerLink]="['/dashboard/lineup']"
+                        routerLinkActive="mat-accent">Lineup</button></span>
+
+                <span *ngxPermissionsOnly="['2','ALL']"><button mat-button [routerLink]="['/dashboard/customers']"
+                        routerLinkActive="mat-accent">Customers</button></span>
+
+                <span *ngxPermissionsOnly="['3','ALL']"><button mat-button [routerLink]="['/abc']"
+                        routerLinkActive="mat-accent">Services &
+                        Prices</button></span>
+                <span *ngxPermissionsOnly="['4','ALL']"><button mat-button [routerLink]="['/abc']"
+                        routerLinkActive="mat-accent">Configration</button></span>
+                <span *ngxPermissionsOnly="['5','ALL']"><button mat-button [routerLink]="['/abc']"
+                        routerLinkActive="mat-accent">Organizations</button></span>
+                <!-- <span *ngxPermissionsOnly="['ALL']"><button mat-button [routerLink]="['/dashboard/viewusers']"
+                        routerLinkActive="mat-accent">Users</button></span> -->
+            </div>
+            <div fxLayoutAlign="flex-end" fxFlex fxLayout class="logout-btn">
+                <button mat-button><i class="material-icons">account_circle</i></button>
+                <span>{{profile.userName}}</span>
+                <button mat-button [matMenuTriggerFor]="loginprofile"><i
+                        class="material-icons">keyboard_arrow_down</i></button>
+
+                <mat-menu #loginprofile="matMenu" class="clsmenu">
+                    <button mat-menu-item class="logout-btn-hover" (click)="EditProfile()">View Profile</button>
+                    <button mat-menu-item class="logout-btn-hover" (click)="logout()">Logout</button>
+                </mat-menu>
+            </div>
+
+        </mat-toolbar>
+        <main>
+            <router-outlet></router-outlet>
+        </main>
+    </mat-sidenav-content>
+
+</mat-sidenav-container>
+
+<mat-toolbar class="footer">
+    <div class="footer-copyright text-center py-3">© 2020 Copyright</div>
+</mat-toolbar>
+
+
+<ng-template #profileDialog>
+    <h3 mat-dialog-title>User Details</h3>
+    <mat-tab-group>
+        <mat-tab label="EditProfile" class="newtab">
+            <div class="container popup">
+
+                <form class="mat-dialog-content" #formControl="ngForm">
+
+                    <div class="form">
+                        <mat-form-field color="accent">
+                            <input matInput #userName class="form-control" type="text" placeholder="Name"
+                                [(ngModel)]="profile.userName" name="Name" maxlength="40" required
+                                pattern="^[a-zA-Z\s]+$">
+                            <mat-error *ngIf="formControl.invalid && !profile.userName">{{getErrorMessage()}}
+                            </mat-error>
+                            <mat-error *ngIf="formControl.invalid && profile.userName">Please enter letter only
+                            </mat-error>
+
+                        </mat-form-field>
+                    </div>
+                    <div class="form">
+                        <mat-form-field color="accent">
+                            <input matInput placeholder="Email" readonly [(ngModel)]="profile.email" type="email"
+                                name="email" email>
+                        </mat-form-field>
+                    </div>
+                    <div class="form">
+                        <mat-form-field color="accent">
+                            <input matInput placeholder="Location" readonly [(ngModel)]="profile.locationName"
+                                type="text" name="locationName">
+                        </mat-form-field>
+                    </div>
+                    <div class="form">
+                        <mat-form-field color="accent">
+                            <textarea matInput #Address class="form-control" placeholder="Address"
+                                [(ngModel)]="profile.Address" name="Address"></textarea>
+                            <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+                        </mat-form-field>
+                    </div>
+
+
+                    <div class="form">
+                        <mat-form-field>
+                            <mat-label>Select DOB</mat-label>
+                            <input required matInput [matDatepicker]="picker" placeholder="DOB"
+                                [(ngModel)]="profile.dob" name="dob">
+                            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                            <mat-datepicker #picker></mat-datepicker>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="form">
+                        <mat-form-field color="accent">
+                            <input required matInput placeholder="Mobile" type="number" [(ngModel)]="profile.mobile"
+                                name="mobile" maxlength="10"
+                                onKeyDown="if(this.value.length==10 && event.keyCode>47 && event.keyCode < 58)return false;">
+                        </mat-form-field>
+                    </div>
+                    <div class="form">
+                        <mat-radio-group aria-label="Gender" placeholder="Gender" class="form-control"
+                            [(ngModel)]="profile.gender" #gender="ngModel" name="gender" required>
+                            <mat-radio-button value="Male">Male</mat-radio-button>
+                            <mat-radio-button value="Female">Female</mat-radio-button>
+                        </mat-radio-group>
+
+
+                    </div>
+
+
+
+
+
+                    <div mat-dialog-actions style="margin-top: 20px;">
+                        <button mat-button [type]="submit" [disabled]="!formControl.valid"
+                            (click)="update()">Update</button>
+                        <button mat-button (click)="onNoClick()" tabindex="-1">Cancel</button>
+                    </div>
+                </form>
+            </div>
+        </mat-tab>
+        <mat-tab label="ChangePassword">
+            <div class="container popup">
+
+                <form class="mat-dialog-content" [formGroup]="passwordForm">
+                    <div class="form">
+                        <mat-form-field>
+                            <input matInput type="password" placeholder="New password" formControlName="password"
+                                required>
+                            <mat-error *ngIf="passwordForm.hasError('required', 'password')">
+                                Please enter your newpassword
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="form">
+                        <mat-form-field>
+                            <input matInput type="password" placeholder="Confirm password"
+                                formControlName="confirmPassword" [errorStateMatcher]="matcher">
+                            <mat-error *ngIf="passwordForm.hasError('notSame')">
+                                Passwords do not match
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div mat-dialog-actions style="margin-top: 20px;">
+                        <button mat-button [type]="submit" [disabled]="!passwordForm.valid"
+                            (click)="updatePassword()">ChangePassword</button>
+                        <button mat-button (click)="onNoClick()" tabindex="-1">Cancel</button>
+                    </div>
+                </form>
+            </div>
+        </mat-tab>
+    </mat-tab-group>
+
+</ng-template>
+
+<div class="msg-success" *ngIf="sucmsg!=''"><span class="text-cls">{{sucmsg}}</span></div>

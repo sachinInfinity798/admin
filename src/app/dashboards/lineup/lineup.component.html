@@ -1,0 +1,73 @@
+<div class="container">
+    <div class="error" *ngIf="isError">{{errormsg}}</div>
+
+    <div class="success clsmsg" *ngIf="isSuccess">{{msgsuccss}}</div>
+    <div align="end" style="text-align: right;">
+        <!-- <button mat-raised-button color="accent">
+            <mat-icon aria-label="Example icon-button with a heart icon">add</mat-icon>Add
+        </button> -->
+    </div>
+    <mat-table #table [dataSource]="dataSource" matSort class="mat-cell">
+
+        <!-- ID Column -->
+        <ng-container matColumnDef="JobType">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>JobType</mat-header-cell>
+            <mat-cell *matCellDef="let row">{{row.jobType}}</mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="Name">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Name</mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{row.name}}</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="Location">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Location</mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{row.location}}</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="ETA">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>ETA</mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{row.ETA | date:'dd-MMM-yyyy HH:mm:ss'}}</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="ETC">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>ETC</mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{row.ETC | date:'dd-MMM-yyyy HH:mm:ss'}}</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="Quantity">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Quantity</mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{row.quantity}}</mat-cell>
+        </ng-container>
+
+        <!-- actions -->
+        <ng-container matColumnDef="Options">
+            <mat-header-cell *matHeaderCellDef>
+                <button mat-icon-button color="primary">Options</button>
+            </mat-header-cell>
+
+            <mat-cell *matCellDef="let row; let i=index;">
+                <button mat-raised-button color="primary" title="List Person" (click)="List(row,i)">
+                    <mat-icon aria-label="View">date_range</mat-icon>
+                </button>
+
+                <button mat-raised-button color="warn" (click)="delete(row,i)">
+                    <mat-icon aria-label="Delete">delete</mat-icon>
+                </button>
+            </mat-cell>
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    </mat-table>
+
+
+    <div class="no-results" style="text-align: center;" *ngIf="dataSource.length==0">
+        No results found Please Add new data
+    </div>
+
+
+    <!-- <mat-paginator [length]="totalrow" [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]"
+        [showFirstLastButtons]="true" (page)="pageEvent = handlePage($event)" [pageIndex]="currentPage">
+    </mat-paginator> -->
+
+</div>

@@ -1,0 +1,17 @@
+mat-card {
+  max-width: 500px;
+  margin: 15% auto;
+  text-align: center;
+  color:blue($color: #000000);
+  //background-color: #4cb550;
+  background-color: #3fb57fc7;
+}
+
+mat-form-field {
+  display: block;
+  font-size: 20px;
+}
+.mat-focused .mat-form-field-label {
+      /*change color of label*/
+      color: blue!important;
+  }

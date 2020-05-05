@@ -1,0 +1,30 @@
+table {
+  width: 100%;
+}
+.container{
+    margin-top: 50px;
+}
+.container.popup {
+  display: flex;
+  flex-direction: column;
+  min-width: 400px;
+  overflow: hidden;
+  min-height: 250px;
+}
+.form {
+  display: flex;
+  padding-top: 6px;
+  
+}
+
+.mat-form-field {
+  font-size: 16px;
+  flex-grow: 1;
+}
+.frommat{
+  display: block !important;
+}
+.frommat mat-label {
+    margin-bottom: 12px !important;
+    display: block;
+}

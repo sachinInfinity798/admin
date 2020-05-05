@@ -1,0 +1,29 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  min-width: 850px;
+  min-height: 200px;
+}
+
+.success.clsmsg {
+       color: #fff;
+    position: absolute;
+    margin: 0 auto;
+    padding: 3px;
+    left: 40%;
+    top: 11;
+    background: #3ca030;
+}
+
+.error {
+    color: #fff;
+    text-align: center;
+    height: 50px;
+    margin-top: 10px;
+    background-color: #ff5200;
+}
+
+mat-cell, mat-footer-cell, mat-header-cell {
+    
+    display: block;
+}

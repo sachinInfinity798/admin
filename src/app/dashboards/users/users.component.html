@@ -1,0 +1,156 @@
+<div class="container">
+    <div class="error" *ngIf="isError">{{msg}}</div>
+    <div *ngIf="!isError">
+        <div class="success clsmsg" *ngIf="isSuccess">{{msgsuccss}}</div>
+        <div align="end" style="text-align: right;">
+            <button mat-raised-button color="primary" (click)="adduser()">
+                <mat-icon aria-label="Example icon-button with a heart icon">add</mat-icon>Add User
+            </button>
+        </div>
+        <mat-table #table [dataSource]="dataSource" matSort class="mat-cell">
+
+            <!-- ID Column -->
+            <ng-container matColumnDef="Name">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>Name</mat-header-cell>
+                <mat-cell *matCellDef="let row">{{row.Name}}</mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="Email">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>Email</mat-header-cell>
+                <mat-cell *matCellDef="let row"> {{row.Email}}</mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="Address">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>Address</mat-header-cell>
+                <mat-cell *matCellDef="let row"> {{row.Address}}</mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="DOB">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>DOB</mat-header-cell>
+                <mat-cell *matCellDef="let row"> {{row.DOB | date:'dd-MM-yyyy'}}</mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="Gender">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>Gender</mat-header-cell>
+                <mat-cell *matCellDef="let row"> {{row.Gender}}</mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="City">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>City</mat-header-cell>
+                <mat-cell *matCellDef="let row"> {{row.City}}</mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="Mobile">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>Mobile</mat-header-cell>
+                <mat-cell *matCellDef="let row"> {{row.Mobile}}</mat-cell>
+            </ng-container>
+
+            <!-- actions -->
+            <ng-container matColumnDef="actions">
+                <mat-header-cell *matHeaderCellDef>
+                    <button mat-icon-button color="primary">Action</button>
+                </mat-header-cell>
+
+                <mat-cell *matCellDef="let row; let i=index;">
+                    <button mat-raised-button color="primary" (click)="Edit(row,i)">
+                        <mat-icon aria-label="Edit">edit</mat-icon>
+                    </button>
+
+                    <button mat-raised-button color="warn" (click)="delete(row,i)">
+                        <mat-icon aria-label="Delete">delete</mat-icon>
+                    </button>
+                </mat-cell>
+            </ng-container>
+
+            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+        </mat-table>
+
+
+        <div class="no-results" *ngIf="dataSource.length==0">
+            No results found Please Add new data
+        </div>
+
+
+        <!-- <mat-paginator [length]="totalrow" [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]"
+        [showFirstLastButtons]="true" (page)="pageEvent = handlePage($event)" [pageIndex]="currentPage">
+    </mat-paginator> -->
+    </div>
+</div>
+
+<ng-template #userDialog>
+    <h3 mat-dialog-title>Add User</h3>
+    <div class="container popup">
+
+        <form class="mat-dialog-content" #formControl="ngForm">
+
+            <div class="form">
+                <mat-form-field color="accent">
+                    <input matInput #userName class="form-control" type="text" placeholder="Name"
+                        [(ngModel)]="profile.userName" name="Name" maxlength="40" required pattern="^[a-zA-Z\s]+$">
+                    <mat-error *ngIf="formControl.invalid && !profile.userName">{{getErrorMessage()}}
+                    </mat-error>
+                    <mat-error *ngIf="formControl.invalid && profile.userName">Please enter letter only
+                    </mat-error>
+
+                </mat-form-field>
+            </div>
+            <div class="form">
+                <mat-form-field color="accent">
+                    <input matInput placeholder="Email" readonly [(ngModel)]="profile.email" type="email" name="email"
+                        email>
+                </mat-form-field>
+            </div>
+            <div class="form">
+                <mat-form-field color="accent">
+                    <textarea matInput #Address class="form-control" placeholder="Address" [(ngModel)]="profile.Address"
+                        name="Address"></textarea>
+                    <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+                </mat-form-field>
+            </div>
+
+
+            <div class="form">
+                <mat-form-field>
+                    <mat-label>Select DOB</mat-label>
+                    <input required matInput [matDatepicker]="picker" placeholder="DOB" [(ngModel)]="profile.dob"
+                        name="dob">
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                </mat-form-field>
+            </div>
+            <div class="form frommat" fxLayout="column" fxLayoutGap="5px">
+                <mat-label>Select Permission</mat-label>
+                <div class="example-section" *ngFor="let cartoon of cartoonsData">
+                    <mat-checkbox class="example-margin" (change)="onChangeEventFunc(cartoon.name, $event)">
+                        {{ cartoon.name }}
+                    </mat-checkbox>
+                </div>
+            </div>
+            <div class="form">
+                <mat-form-field color="accent">
+                    <input required matInput placeholder="Mobile" type="number" [(ngModel)]="profile.mobile"
+                        name="mobile" maxlength="10"
+                        onKeyDown="if(this.value.length==10 && event.keyCode>47 && event.keyCode < 58)return false;">
+                </mat-form-field>
+            </div>
+            <div class="form">
+                <mat-radio-group aria-label="Gender" placeholder="Gender" class="form-control"
+                    [(ngModel)]="profile.gender" #gender="ngModel" name="gender" required>
+                    <mat-radio-button value="Male">Male</mat-radio-button>
+                    <mat-radio-button value="Female">Female</mat-radio-button>
+                </mat-radio-group>
+
+
+            </div>
+
+
+
+
+
+            <div mat-dialog-actions style="margin-top: 20px;">
+                <button mat-button [type]="submit" [disabled]="!formControl.valid" (click)="update()">Update</button>
+                <button mat-button (click)="onNoClick()" tabindex="-1">Cancel</button>
+            </div>
+        </form>
+    </div>
+</ng-template>

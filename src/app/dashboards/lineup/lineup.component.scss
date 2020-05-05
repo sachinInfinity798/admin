@@ -1,0 +1,23 @@
+table {
+  width: 100%;
+}
+.container{
+    margin-top: 50px;
+    min-width: 100%;
+}
+.success.clsmsg {
+       color: #fff;
+    position: absolute;
+    margin: 0 auto;
+    padding: 3px;
+    left: 40%;
+    top: 11px;
+    background: #3ca030;
+}
+.error {
+    color: #fff;
+    text-align: center;
+    height: 50px;
+    margin-top: 10px;
+    background-color: #ff5200;
+}

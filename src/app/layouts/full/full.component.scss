@@ -1,0 +1,89 @@
+.mat-toolbar.mat-primary {
+    //background: #3fb57fab;
+    background: #3fb57fc7;//404e48ab
+    color: #fff;
+    height: 70px;
+}
+
+.mat-button.mat-primary .mat-button-focus-overlay {
+  background-color: transparent;
+}
+
+.top-nav > .mat-raised-button {
+    margin-right: 12px !important;
+}
+
+.top-nav > span > .mat-button.mat-accent, .mat-icon-button.mat-accent, .mat-stroked-button.mat-accent {
+    color: #fff;
+    background-color: #000;
+}
+
+.logout-btn-hover:hover {
+    background: rgba(0, 0, 0, 0.28);
+}
+::ng-deep .clsmenu{
+    width: 180px !important;
+    margin-top: 15px !important;
+}
+table {
+  width: 100%;
+}
+.success.clsmsg {
+       color: #000;
+    position: absolute;
+    margin: 0 auto;
+    left: 40%;
+    top: 11;
+    right: 50%;
+    width: 20%;
+}
+
+.error {
+    color: #fff;
+    text-align: center;
+    height: 50px;
+    margin-top: 10px;
+    background-color: #ff5200;
+}
+
+
+.container.popup,.container.deletepopup {
+  display: flex;
+  flex-direction: column;
+  min-width: 400px;
+  overflow: hidden;
+  min-height: 250px;
+}
+
+.form {
+  display: flex;
+  padding-top: 6px;
+  
+}
+
+.mat-form-field {
+  font-size: 16px;
+  flex-grow: 1;
+}
+
+mat-radio-button ~ .mat-radio-button {
+  margin-left: 16px;
+}
+.container.popup form {
+    min-height: 250px !important;
+}
+.msg-success {
+    position: absolute;
+    /* display: block; */
+    top: 75px;
+    
+    z-index: 9999;
+    text-align: center;
+    width: 100%;
+}
+.text-cls{
+    background: #46bb30;
+    color: #fff;
+    width: 100%;
+    padding: 7px;
+}

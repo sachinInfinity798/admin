@@ -1,0 +1,65 @@
+<div class="container">
+    <div align="end" style="text-align: right;">
+        <button mat-stroked-button color="accent" title="close" (click)="onNoClick()">
+            <mat-icon aria-label="Example icon-button with a heart icon">close</mat-icon>
+        </button>
+    </div>
+    <h3 mat-dialog-title>Person Contact</h3>
+    <div class="error" *ngIf="isError">{{errormsg}}</div>
+    <div class="success clsmsg" *ngIf="isSuccess">{{msgsuccss}}</div>
+
+
+    <mat-table #table [dataSource]="dataSource" matSort class="mat-cell">
+
+        <!-- ID Column -->
+        <ng-container matColumnDef="Name">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Name</mat-header-cell>
+            <mat-cell *matCellDef="let row">{{row.name}}</mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="Address">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Address</mat-header-cell>
+            <mat-cell *matCellDef="let row">{{row.address}}</mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="Email">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Email</mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{row.email}}</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="ContactNumber">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>ContactNumber</mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{row.contactNumber}}</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="Company">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Company</mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{row.company}}</mat-cell>
+        </ng-container>
+
+
+        <!-- actions -->
+        <ng-container matColumnDef="Options">
+            <mat-header-cell *matHeaderCellDef>Options</mat-header-cell>
+
+            <mat-cell *matCellDef="let row; let i=index;">
+
+                <button mat-raised-button color="warn" (click)="delete(row,i)">
+                    <mat-icon aria-label="Delete">delete</mat-icon>
+                </button>
+            </mat-cell>
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    </mat-table>
+
+
+    <div class="no-results" style="text-align: center;" *ngIf="dataSource.length==0">
+        No results found Please Add new data
+    </div>
+
+
+    <!-- <mat-paginator [length]="totalrow" [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]"
+        [showFirstLastButtons]="true" (page)="pageEvent = handlePage($event)" [pageIndex]="currentPage">
+    </mat-paginator> -->
+
+</div>
