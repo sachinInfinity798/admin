@@ -8,13 +8,25 @@ import { DatePipe } from '@angular/common'
 const joblist_M = gql`mutation listQueries($locationId: ID!) {
   joblist_M(locationId: $locationId){
     id
-    personsId
     jobType
     name
     ETA
     ETC
     quantity
-    location
+    location{
+      name
+    }
+    assigncontactlists{
+      id
+      personlist{
+        id
+        name
+        address
+        email
+        contactNumber
+        company
+      }
+    }
   }
 }`
 const deletejob_M = gql`mutation deleteQueries($Id: String!) {

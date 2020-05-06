@@ -31,7 +31,6 @@ export class LineupComponent implements OnInit {
   ngOnInit() {
     this.getuserData()
     this.getJobList()
-    this.resetlocalStorage()
   }
   getJobList() {
     this._lineup.jobList(this.user.locationID).subscribe(res => {
@@ -62,7 +61,7 @@ export class LineupComponent implements OnInit {
   }
   List(row, index) {
     let dialogRef = this.dialog.open(PersonComponent, {
-      data: { personsId: row.personsId, jobId: row.id },
+      data: { jobId: row.id, personlist: row.assigncontactlists },
     })
 
     dialogRef.afterClosed().subscribe(result => {
@@ -77,9 +76,25 @@ export class LineupComponent implements OnInit {
     })
     dialogRef.afterClosed().subscribe(result => {
       if (result === 1) {
-        this.isSuccess = true
-        this.msgsuccss = localStorage.getItem('delmsg')
-        this.clearmsg()
+        let jobarry: any = []
+        this._lineup.deleteJob(row.id).subscribe(res => {
+          if (res.data['deletejob_M']) {
+            this._lineup.getjobBox.subscribe(resut => {
+              jobarry = resut
+            })
+            let index = jobarry.findIndex(a => a.id == row.id)
+            if (index > -1) { jobarry.splice(index, 1) }
+            this._lineup.setjobBox(jobarry)
+            this.isSuccess = true
+            this.msgsuccss = 'Job deleted Successfully'
+            this.clearmsg()
+          }
+        },
+          (error) => {
+
+            // this.error = error
+          }
+        )
 
       }
     })
@@ -90,9 +105,5 @@ export class LineupComponent implements OnInit {
       _this.isSuccess = false
       _this.msgsuccss = ""
     }, 2000)
-  }
-  resetlocalStorage() {
-    localStorage.removeItem('isSuccess')
-    localStorage.removeItem('delmsg')
   }
 }

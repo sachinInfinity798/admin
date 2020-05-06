@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router'
 import { BlankComponent } from './layouts/blank/blank.component'
 import { FullComponent } from './layouts/full/full.component'
 import { DashboardsModule } from './dashboards/dashboards.module'
+import { AuthenticationModule } from './authentication/authentication.module'
 import { AuthGuard } from './auth/auth.guard'
 
 
@@ -19,12 +20,8 @@ const routes: Routes = [
 
       {
         path: '',
-        loadChildren: './authentication/authentication.module#AuthenticationModule'
+        loadChildren: () => AuthenticationModule
       },
-      {
-        path: '',
-        loadChildren: './authentication/authentication.module#AuthenticationModule'
-      }
 
 
     ]

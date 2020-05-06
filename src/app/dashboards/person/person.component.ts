@@ -4,9 +4,11 @@ import { PersonService } from '../../services/person.service'
 import { Apollo } from 'apollo-angular'
 import gql from 'graphql-tag'
 import { personType } from './person-type'
+import * as CryptoJS from 'crypto-js'
 import { MAT_DIALOG_DATA, MatDialogRef, MatDialog } from '@angular/material/dialog'
 import { DeleteComponent } from '../delete/delete.component'
 import { MatTable, MatTableDataSource } from '@angular/material/table'
+import { LineupService } from '../../services/lineup.service'
 
 @Component({
   selector: 'app-person',
@@ -14,7 +16,6 @@ import { MatTable, MatTableDataSource } from '@angular/material/table'
   styleUrls: ['./person.component.scss']
 })
 export class PersonComponent implements OnInit {
-  personId: any
   jobId: any
   msgsuccss: any
   isSuccess = false
@@ -22,34 +23,17 @@ export class PersonComponent implements OnInit {
   errormsg = ''
   displayedColumns: string[] = ['Name', 'Address', 'Email', 'ContactNumber', 'Company', 'Options']
   dataSource: personType[] = []
-  constructor(private changeDetectorRefs: ChangeDetectorRef, public dialog: MatDialog, private apollo: Apollo, public _person: PersonService,
+  constructor(private changeDetectorRefs: ChangeDetectorRef, public _lineup: LineupService, public dialog: MatDialog, private apollo: Apollo, public _person: PersonService,
     private formBuilder: FormBuilder, public dialogRef: MatDialogRef<PersonComponent>, @Optional() @Inject(MAT_DIALOG_DATA) public data: any) {
     dialogRef.disableClose = true
-    if (this.data.personsId != undefined) {
-      this.resetlocalStorage()
-      this.personId = this.data.personsId
+    if (this.data.personlist) {
       this.jobId = this.data.jobId
-      this.getPersonList()
+      this._person.setpersonBox(data.personlist)
+      this.dataSource = data.personlist
     }
   }
   @ViewChild(MatTable, { static: true }) table: MatTable<any>
   ngOnInit() {
-
-  }
-  getPersonList() {
-    this._person.personList(this.personId).subscribe(res => {
-      if (res.data['personlist_M']) {
-        this.dataSource = res.data['personlist_M']
-        this._person.setpersonBox(res.data['personlist_M'])
-        this.refreceTable()
-      }
-    },
-      (error) => {
-        this.isError = true
-        this.errormsg = error
-      }
-    )
-
   }
   refreceTable() {
     this._person.getpersonBox.subscribe(resut => {
@@ -59,21 +43,37 @@ export class PersonComponent implements OnInit {
   }
   delete(row, index) {
     let dialogRef = this.dialog.open(DeleteComponent, {
-      data: { id: row.id, jobId: this.jobId, text: 'Person Contact ' + row.name, name: 'contactdelete' }
+      data: { id: row.personlist.id, jobId: this.jobId, text: 'Person Contact ' + row.personlist.name, name: 'contactdelete' }
     })
     dialogRef.afterClosed().subscribe(result => {
       if (result === 1) {
-        if (localStorage.getItem('isSuccess') == "Yes") {
-          this.isSuccess = true
-          this.msgsuccss = localStorage.getItem('delmsg')
-          this.clearmsg()
 
-        }
+        let personarry: any = []
+        this._person.deletePersonContact(row.personlist.id, this.jobId).subscribe(res => {
+          if (res.data['deleteperson_M']) {
+            this._person.getpersonBox.subscribe(resut => {
+              personarry = resut
+            })
+            let index = personarry.findIndex(a => a.id == row.id)
+            if (index > -1) { personarry.splice(index, 1) }
+            this._person.setpersonBox(personarry)
+            this.refreceTable()
+            this.isSuccess = true
+            this.msgsuccss = 'Contact Person deleted Successfully'
+            this.clearmsg()
+          }
+        },
+          (error) => {
+
+            this.isError = true
+            this.errormsg = error
+          }
+        )
       }
     })
   }
-  clearmsg() {
 
+  clearmsg() {
     let _this = this
     setTimeout(function () {
       _this.isSuccess = false
@@ -82,9 +82,5 @@ export class PersonComponent implements OnInit {
   }
   onNoClick(): void {
     this.dialogRef.close()
-  }
-  resetlocalStorage() {
-    localStorage.removeItem('isSuccess')
-    localStorage.removeItem('delmsg')
   }
 }

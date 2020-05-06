@@ -14,25 +14,25 @@
         <!-- ID Column -->
         <ng-container matColumnDef="Name">
             <mat-header-cell *matHeaderCellDef mat-sort-header>Name</mat-header-cell>
-            <mat-cell *matCellDef="let row">{{row.name}}</mat-cell>
+            <mat-cell *matCellDef="let row">{{row.personlist.name}}</mat-cell>
         </ng-container>
         <ng-container matColumnDef="Address">
             <mat-header-cell *matHeaderCellDef mat-sort-header>Address</mat-header-cell>
-            <mat-cell *matCellDef="let row">{{row.address}}</mat-cell>
+            <mat-cell *matCellDef="let row">{{row.personlist.address}}</mat-cell>
         </ng-container>
         <ng-container matColumnDef="Email">
             <mat-header-cell *matHeaderCellDef mat-sort-header>Email</mat-header-cell>
-            <mat-cell *matCellDef="let row"> {{row.email}}</mat-cell>
+            <mat-cell *matCellDef="let row"> {{row.personlist.email}}</mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="ContactNumber">
             <mat-header-cell *matHeaderCellDef mat-sort-header>ContactNumber</mat-header-cell>
-            <mat-cell *matCellDef="let row"> {{row.contactNumber}}</mat-cell>
+            <mat-cell *matCellDef="let row"> {{row.personlist.contactNumber}}</mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="Company">
             <mat-header-cell *matHeaderCellDef mat-sort-header>Company</mat-header-cell>
-            <mat-cell *matCellDef="let row"> {{row.company}}</mat-cell>
+            <mat-cell *matCellDef="let row"> {{row.personlist.company}}</mat-cell>
         </ng-container>
 
 

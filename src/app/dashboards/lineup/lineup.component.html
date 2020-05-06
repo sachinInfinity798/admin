@@ -21,7 +21,7 @@
 
         <ng-container matColumnDef="Location">
             <mat-header-cell *matHeaderCellDef mat-sort-header>Location</mat-header-cell>
-            <mat-cell *matCellDef="let row"> {{row.location}}</mat-cell>
+            <mat-cell *matCellDef="let row"> {{row.location.name}}</mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="ETA">
