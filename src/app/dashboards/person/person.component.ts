@@ -1,14 +1,11 @@
 import { Component, OnInit, Inject, Optional, ViewChild, TemplateRef, ChangeDetectorRef } from '@angular/core'
 import { FormBuilder, FormGroup, NgForm, FormControl, Validators } from '@angular/forms'
 import { PersonService } from '../../services/person.service'
-import { Apollo } from 'apollo-angular'
-import gql from 'graphql-tag'
 import { personType } from './person-type'
 import * as CryptoJS from 'crypto-js'
 import { MAT_DIALOG_DATA, MatDialogRef, MatDialog } from '@angular/material/dialog'
 import { DeleteComponent } from '../delete/delete.component'
 import { MatTable, MatTableDataSource } from '@angular/material/table'
-import { LineupService } from '../../services/lineup.service'
 
 @Component({
   selector: 'app-person',
@@ -17,13 +14,13 @@ import { LineupService } from '../../services/lineup.service'
 })
 export class PersonComponent implements OnInit {
   jobId: any
-  msgsuccss: any
+  msgsuccss: string
   isSuccess = false
   isError = false
-  errormsg = ''
+  errormsg: string
   displayedColumns: string[] = ['Name', 'Address', 'Email', 'ContactNumber', 'Company', 'Options']
   dataSource: personType[] = []
-  constructor(private changeDetectorRefs: ChangeDetectorRef, public _lineup: LineupService, public dialog: MatDialog, private apollo: Apollo, public _person: PersonService,
+  constructor(private changeDetectorRefs: ChangeDetectorRef, public dialog: MatDialog, public _person: PersonService,
     private formBuilder: FormBuilder, public dialogRef: MatDialogRef<PersonComponent>, @Optional() @Inject(MAT_DIALOG_DATA) public data: any) {
     dialogRef.disableClose = true
     if (this.data.personlist) {
@@ -43,7 +40,7 @@ export class PersonComponent implements OnInit {
   }
   delete(row, index) {
     let dialogRef = this.dialog.open(DeleteComponent, {
-      data: { id: row.personlist.id, jobId: this.jobId, text: 'Person Contact ' + row.personlist.name, name: 'contactdelete' }
+      data: { id: row.personlist.id, jobId: this.jobId, text: 'Person Contact ' + row.personlist.name }
     })
     dialogRef.afterClosed().subscribe(result => {
       if (result === 1) {

@@ -21,10 +21,10 @@ export class LineupComponent implements OnInit {
   displayedColumns: string[] = ['JobType', 'Name', 'Location', 'ETA', 'ETC', 'Quantity', 'Options']
   dataSource: lineupType[] = []
   user: any
-  msgsuccss: any
+  msgsuccss: string
   isSuccess = false
   isError = false
-  errormsg = ''
+  errormsg: string
   constructor(private changeDetectorRefs: ChangeDetectorRef, private _lineup: LineupService, private route: ActivatedRoute,
     private router: Router, public dialog: MatDialog) { }
   @ViewChild(MatTable, { static: true }) table: MatTable<any>
@@ -72,7 +72,7 @@ export class LineupComponent implements OnInit {
 
   delete(row, index) {
     let dialogRef = this.dialog.open(DeleteComponent, {
-      data: { id: row.id, text: 'job ' + row.name, name: 'jobdelete' }
+      data: { id: row.id, text: 'job ' + row.name }
     })
     dialogRef.afterClosed().subscribe(result => {
       if (result === 1) {
