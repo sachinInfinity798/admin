@@ -7,4 +7,5 @@ export class lineupType {
     ETC: string
     quantity: string
     location: string
+    state?: 'collapsed' | 'expanded'
 }

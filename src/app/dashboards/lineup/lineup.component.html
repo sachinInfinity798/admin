@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container mat-elevation-z8">
     <div class="error" *ngIf="isError">{{errormsg}}</div>
 
     <div class="success clsmsg" *ngIf="isSuccess">{{msgsuccss}}</div>
@@ -12,32 +12,45 @@
         <!-- ID Column -->
         <ng-container matColumnDef="JobType">
             <mat-header-cell *matHeaderCellDef mat-sort-header>JobType</mat-header-cell>
-            <mat-cell *matCellDef="let row">{{row.jobType}}</mat-cell>
+            <mat-cell *matCellDef="let row">{{row.jobType}}
+                <!-- <i class="material-icons" (click)="onToggleChange($event,row)">
+                    {{row.state === 'expanded' ? 'keyboard_arrow_up' : 'keyboard_arrow_down'}}
+                </i> -->
+                <mat-icon id="expand_more" (click)="onToggleChange($event,row)"  #expand_more *ngIf="!row.close"  >
+                    expand_more</mat-icon>
+                <mat-icon id="expand_less" (click)="onToggleChange($event,row)"  #expand_less *ngIf="row.close">
+                    expand_less</mat-icon>
+            </mat-cell>
         </ng-container>
         <ng-container matColumnDef="Name">
             <mat-header-cell *matHeaderCellDef mat-sort-header>Name</mat-header-cell>
-            <mat-cell *matCellDef="let row"> {{row.name}}</mat-cell>
+            <mat-cell *matCellDef="let row" (click)="$event.stopPropagation()"> {{row.name}}</mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="Location">
             <mat-header-cell *matHeaderCellDef mat-sort-header>Location</mat-header-cell>
-            <mat-cell *matCellDef="let row"> {{row.location.name}}</mat-cell>
+            <mat-cell *matCellDef="let row" (click)="$event.stopPropagation()"> {{row.location.name}}</mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="ETA">
             <mat-header-cell *matHeaderCellDef mat-sort-header>ETA</mat-header-cell>
-            <mat-cell *matCellDef="let row"> {{row.ETA | date:'dd-MMM-yyyy HH:mm:ss'}}</mat-cell>
+            <mat-cell *matCellDef="let row" (click)="$event.stopPropagation()">
+                {{row.ETA | date:'dd-MMM-yyyy HH:mm:ss'}}</mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="ETC">
             <mat-header-cell *matHeaderCellDef mat-sort-header>ETC</mat-header-cell>
-            <mat-cell *matCellDef="let row"> {{row.ETC | date:'dd-MMM-yyyy HH:mm:ss'}}</mat-cell>
+            <mat-cell *matCellDef="let row" (click)="$event.stopPropagation()">
+                {{row.ETC | date:'dd-MMM-yyyy HH:mm:ss'}}</mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="Quantity">
             <mat-header-cell *matHeaderCellDef mat-sort-header>Quantity</mat-header-cell>
-            <mat-cell *matCellDef="let row"> {{row.quantity}}</mat-cell>
+            <mat-cell *matCellDef="let row" (click)="$event.stopPropagation()"> {{row.quantity}}</mat-cell>
         </ng-container>
+
+
+
 
         <!-- actions -->
         <ng-container matColumnDef="Options">
@@ -45,19 +58,24 @@
                 <button mat-icon-button color="primary">Options</button>
             </mat-header-cell>
 
-            <mat-cell *matCellDef="let row; let i=index;">
-                <button mat-raised-button color="primary" title="List Person" (click)="List(row,i)">
+            <mat-cell *matCellDef="let row; let i=index;" (click)="$event.stopPropagation()">
+                <button class="job-icon" mat-button color="primary" title="List Person" (click)="List(row,i)">
                     <mat-icon aria-label="View">date_range</mat-icon>
                 </button>
-
-                <button mat-raised-button color="warn" (click)="delete(row,i)">
+                <button class="job-icon" mat-button color="primary" title="Edit JOb" (click)="edit(row,i)">
+                    <mat-icon aria-label="Edit">edit</mat-icon>
+                </button>
+                <button class="job-icon" mat-button color="warn" (click)="delete(row,i)">
                     <mat-icon aria-label="Delete">delete</mat-icon>
                 </button>
             </mat-cell>
         </ng-container>
 
         <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-        <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns;" class="element-row" [cdkDetailRow]="row"
+            [cdkDetailRowTpl]="tpl" (click)="$event.stopPropagation()">
+        </mat-row>
+
     </mat-table>
 
 
@@ -65,9 +83,163 @@
         No results found Please Add new data
     </div>
 
-
-    <!-- <mat-paginator [length]="totalrow" [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]"
+    <mat-paginator [length]="totalrow" [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]"
         [showFirstLastButtons]="true" (page)="pageEvent = handlePage($event)" [pageIndex]="currentPage">
-    </mat-paginator> -->
+    </mat-paginator>
+    <!--  *ngIf="row.flag"="checkExpanded(row) ? 'expanded' : 'collapsed'"-->
 
 </div>
+
+<ng-template #tpl let-row>
+    <div class="mat-row sublistcls" [@detailExpand]>
+
+        <mat-table #subtable [dataSource]="row.assignfilelists" matSort class="mat-cell">
+
+            <!-- ID Column -->
+            <ng-container matColumnDef="File No">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>File No</mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element.jobfile.fileNo}}</mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="Client">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>Client</mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element.jobfile.client.name}}</mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="Quantity">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>Quantity</mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element.jobfile.quantity}}</mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="Commodity">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>Commodity</mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element.jobfile.Commodity}}</mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="Account Managers">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>Account Managers</mat-header-cell>
+                <mat-cell *matCellDef="let element">
+                    <ng-container *ngFor="let man of element.jobfile.assignmanagetofiles">
+                        {{man.accountmanager.managername}} ,
+                        <!-- <br /> -->
+                    </ng-container>
+                </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="File Status">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>File Status</mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element.jobfile.filestatus}}</mat-cell>
+            </ng-container>
+
+
+
+            <!-- actions -->
+            <ng-container matColumnDef="Options">
+                <mat-header-cell *matHeaderCellDef>
+                    <button mat-icon-button color="primary">Options</button>
+                </mat-header-cell>
+
+                <mat-cell *matCellDef="let element; let i=index;">
+                    <button class="job-icon" mat-button color="primary" (click)="editfile(element,i)" title="edit">
+                        <mat-icon aria-label="View">edit</mat-icon>
+                    </button>
+
+                    <button class="job-icon" mat-button color="warn" (click)="deletefile(subtable,element,row,i)">
+                        <mat-icon aria-label="Delete">delete</mat-icon>
+                    </button>
+                </mat-cell>
+            </ng-container>
+
+            <mat-header-row *matHeaderRowDef="displayedClientColumns"></mat-header-row>
+
+            <mat-row *matRowDef="let element; columns: displayedClientColumns;" [class.newclass]="element.show">
+            </mat-row>
+
+
+        </mat-table>
+        <div class="no-results" style="text-align: center;" *ngIf="row.assignfilelists.length==0">
+            No results found Please Add new data
+        </div>
+    </div>
+</ng-template>
+
+
+<ng-template #addjobDialog>
+    <h3 mat-dialog-title>Edit Job</h3>
+    <div class="container popup">
+
+        <form [formGroup]="jobForm">
+            <app-jobdetails [jobdetails]="jobForm"></app-jobdetails>
+            <app-jobaddresses [addresses]="jobForm"></app-jobaddresses>
+            <app-jobcontacts [contactdetails]="jobForm" (addContactEmail)="addContactEmail()"
+                (addContactPhone)="addContactPhone()"></app-jobcontacts>
+            <div mat-dialog-actions>
+                <button mat-button [type]="submit" [disabled]="!jobForm.valid" [mat-dialog-close]="1"
+                    (click)="updatejob()">Update</button>
+                <button mat-button (click)="onNoClick()" tabindex="-1">Cancel</button>
+            </div>
+
+        </form>
+    </div>
+</ng-template>
+
+
+
+
+<ng-template #editfileDialog>
+    <h3 mat-dialog-title>Edit File</h3>
+    <div class="container popup">
+        <form [formGroup]="jobfileForm">
+            <div class="form">
+                <mat-form-field class="example-full-width">
+                    <input matInput placeholder="File No" readonly formControlName="fileNo">
+                </mat-form-field>
+            </div>
+            <div class="form">
+                <mat-form-field class="example-full-width">
+                    <mat-label>Select Client</mat-label>
+                    <mat-select placeholder="JobType" formControlName="clientId">
+                        <mat-option [value]="">Select Client</mat-option>
+                        <mat-option *ngFor="let val of clientlist" [value]="val.id">
+                            {{val.name}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+
+            <div class="form">
+                <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Quantity" formControlName="quantity">
+                </mat-form-field>
+            </div>
+
+            <div class="form">
+                <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Commodity" formControlName="Commodity">
+                </mat-form-field>
+            </div>
+
+            <div class="form">
+                <mat-label>File Status</mat-label>
+                <mat-radio-group aria-label="Gender" class="form-control" formControlName="filestatus">
+                    <mat-radio-button value="Confirmed">Confirmed</mat-radio-button>
+                    <mat-radio-button value="Pending">Pending</mat-radio-button>
+                </mat-radio-group>
+            </div>
+            <div class="form">
+                <mat-form-field>
+                    <mat-label>Account Manager</mat-label>
+                    <mat-select formControlName="assignmanage" multiple>
+                        <mat-option *ngFor="let manager of managerlist" [value]="manager.accountmanager.id">
+                            {{manager.accountmanager.managername}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+
+            <div mat-dialog-actions>
+                <button mat-button [type]="submit" [disabled]="!jobfileForm.valid" [mat-dialog-close]="1"
+                    (click)="updatejobfile()">Update</button>
+                <button mat-button (click)="onfileClick()" tabindex="-1">Cancel</button>
+            </div>
+        </form>
+    </div>
+</ng-template>

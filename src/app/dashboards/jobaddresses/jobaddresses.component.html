@@ -1,0 +1,47 @@
+<div [formGroup]="addresses" style="margin-bottom: 20px">
+    <h3 mat-dialog-title>Job Address</h3>
+    <div class="form">
+        <div class="sub-field">
+            <mat-form-field class="example-full-width">
+                <input matInput placeholder="Address" formControlName="address">
+            </mat-form-field>
+
+
+        </div>
+
+        <div class="sub-field">
+            <mat-form-field class="example-full-width">
+                <input matInput placeholder="Country" formControlName="country">
+            </mat-form-field>
+
+        </div>
+        <div class="sub-field">
+            <mat-form-field class="example-full-width">
+                <input matInput placeholder="State" formControlName="state">
+            </mat-form-field>
+        </div>
+        <div class="sub-field">
+            <mat-form-field class="example-full-width">
+                <input matInput placeholder="City" formControlName="city">
+            </mat-form-field>
+        </div>
+    </div>
+    <div class="form">
+
+        <div class="sub-field">
+            <mat-form-field class="example-full-width">
+                <input matInput placeholder="Zip" formControlName="zip">
+            </mat-form-field>
+        </div>
+        <div class="sub-field">
+            <mat-form-field class="example-full-width">
+                <input matInput placeholder="Latitude" formControlName="latitude">
+            </mat-form-field>
+        </div>
+        <div class="sub-field">
+            <mat-form-field class="example-full-width">
+                <input matInput placeholder="Longitude" formControlName="longitude">
+            </mat-form-field>
+        </div>
+    </div>
+</div>

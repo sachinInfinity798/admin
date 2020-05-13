@@ -10,11 +10,15 @@ import { UsersComponent } from './users/users.component'
 import { LineupComponent } from './lineup/lineup.component'
 import { PersonComponent } from './person/person.component'
 import { DeleteComponent } from './delete/delete.component'
+import { CdkDetailRowDirective } from './lineup/cdk-detail-row.directive';
+import { JobdetailsComponent } from './jobdetails/jobdetails.component';
+import { JobaddressesComponent } from './jobaddresses/jobaddresses.component';
+import { JobcontactsComponent } from './jobcontacts/jobcontacts.component';
 
 
 
 @NgModule({
-  declarations: [DashboardComponent, CustomersComponent, UsersComponent, LineupComponent, PersonComponent, DeleteComponent],
+  declarations: [DashboardComponent, CustomersComponent, UsersComponent, LineupComponent, PersonComponent, DeleteComponent, CdkDetailRowDirective, JobdetailsComponent, JobaddressesComponent, JobcontactsComponent],
   exports: [DashboardComponent, CustomersComponent],
   imports: [
     CommonModule,

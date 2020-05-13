@@ -1,0 +1,55 @@
+<div [formGroup]="jobdetails" style="margin-bottom: 20px">
+    <h3 mat-dialog-title>Job Details</h3>
+    <div class="form">
+        <div class="sub-field">
+            <mat-form-field class="example-full-width">
+                <mat-label>Select JobType</mat-label>
+                <mat-select placeholder="JobType" formControlName="jobType">
+                    <mat-option [value]="">Select JobType</mat-option>
+                    <mat-option *ngFor="let val of jobType" [value]="val.name">
+                        {{val.name}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+
+        <div class="sub-field">
+            <mat-form-field class="example-full-width">
+                <input matInput placeholder="Name" formControlName="name">
+            </mat-form-field>
+
+        </div>
+        <div class="sub-field">
+            <mat-form-field class="example-full-width">
+                <input matInput placeholder="Location" readonly formControlName="location">
+            </mat-form-field>
+        </div>
+        <div class="sub-field">
+            <mat-form-field>
+                <mat-label>Select ETA</mat-label>
+                <input required matInput [matDatepicker]="picker" placeholder="ETA" formControlName="ETA">
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+        </div>
+    </div>
+    <div class="form">
+
+        <div class="sub-field">
+            <mat-form-field>
+                <mat-label>Select ETC</mat-label>
+                <input required matInput [matDatepicker]="picker1" placeholder="ETC" formControlName="ETC">
+                <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                <mat-datepicker #picker1></mat-datepicker>
+            </mat-form-field>
+            <!-- <mat-form-field class="example-full-width">
+                <input matInput placeholder="ETC" formControlName="ETC">
+            </mat-form-field> -->
+        </div>
+        <div class="sub-field">
+            <mat-form-field class="example-full-width">
+                <input matInput placeholder="Quantity" formControlName="quantity">
+            </mat-form-field>
+        </div>
+    </div>
+</div>

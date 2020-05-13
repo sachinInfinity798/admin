@@ -1,0 +1,14 @@
+.form {
+  display: flex;
+  padding-top: 6px;}
+
+.mat-form-field {
+  font-size: 16px;
+  flex-grow: 1;
+}
+
+.sub-field {
+    display: inline-flex;
+    margin-left: 20px;
+    width: 25%;
+}

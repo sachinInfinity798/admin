@@ -1,0 +1,73 @@
+<div [formGroup]="contactdetails" style="margin-bottom: 20px">
+    <h3 mat-dialog-title>Contact details for Job</h3>
+    <div formArrayName="contactEmailRows" style="margin-bottom: 20px">
+        <div *ngFor="let cont of contactdetails.controls.contactEmailRows.controls; let i = index" [formGroupName]="i"
+            class="form">
+            <div class="sub-field">
+                <mat-form-field class="example-full-width">
+                    <mat-select placeholder="Email Type" formControlName="emailType">
+                        <mat-option [value]="">Select EmailType</mat-option>
+                        <mat-option *ngFor="let val of emailtype" [value]="val.name">
+                            {{val.name}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div class="sub-field">
+                <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Email" formControlName="email">
+                    <mat-error *ngIf="cont.get('email').hasError('email')">
+                        Email must be a valid email address.
+                    </mat-error>
+                </mat-form-field>
+
+            </div>
+            <div class="button-field">
+                <button type="button" (click)="deleteEmail(i)" mat-button color="warn">
+                    <mat-icon aria-label="Delete">delete</mat-icon>
+                </button>
+            </div>
+        </div>
+        <div fxLayoutAlign="flex-end">
+            <button type="button" (click)="this.addContactEmail.emit()" color="accent">
+                <mat-icon aria-label="add" class="text-add-button">add</mat-icon><span class="text-add-more">Add More
+                    Email</span>
+            </button>
+        </div>
+
+    </div>
+
+    <div formArrayName="contactPhoneRows">
+        <div *ngFor="let cont of contactdetails.controls.contactPhoneRows.controls; let i = index" [formGroupName]="i"
+            class="form">
+            <div class="sub-field">
+                <mat-form-field class="example-full-width">
+                    <mat-select placeholder="Phone Type" formControlName="phoneType">
+                        <mat-option [value]="">Select PhoneType</mat-option>
+                        <mat-option *ngFor="let val of phonetype" [value]="val.name">
+                            {{val.name}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div class="sub-field">
+                <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Phone" formControlName="phone">
+                </mat-form-field>
+
+            </div>
+            <div class="button-field">
+                <button type="button" (click)="deletePhone(i)" mat-button color="warn">
+                    <mat-icon aria-label="Delete">delete</mat-icon>
+                </button>
+            </div>
+        </div>
+        <div fxLayoutAlign="flex-end">
+            <button type="button" (click)="this.addContactPhone.emit()" color="accent">
+                <mat-icon aria-label="add" class="text-add-button">add</mat-icon><span class="text-add-more">Add More
+                    Phone</span>
+            </button>
+        </div>
+
+    </div>
+</div>
