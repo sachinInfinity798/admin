@@ -23,15 +23,16 @@
 
             </div>
             <div class="button-field">
-                <button type="button" (click)="deleteEmail(i)" mat-button color="warn">
+                <button type="button" (click)="deleteEmail(i)" mat-button color="warn" title="Delete Email">
                     <mat-icon aria-label="Delete">delete</mat-icon>
                 </button>
             </div>
         </div>
         <div fxLayoutAlign="flex-end">
-            <button type="button" (click)="this.addContactEmail.emit()" mat-raised-button color="accent">
-                <mat-icon aria-label="add" class="text-add-button">add</mat-icon><span class="text-add-more">Add More
-                    Email</span>
+            <button type="button" (click)="this.addContactEmail.emit()" mat-raised-button color="accent"
+                title="Add More Email">
+                <mat-icon aria-label="add" class="text-add-button">add</mat-icon><span class="text-add-more">
+                    Add More Email</span>
             </button>
         </div>
 
@@ -57,13 +58,14 @@
 
             </div>
             <div class="button-field">
-                <button type="button" (click)="deletePhone(i)" mat-button color="warn">
+                <button type="button" (click)="deletePhone(i)" mat-button color="warn" title="Delete Phone">
                     <mat-icon aria-label="Delete">delete</mat-icon>
                 </button>
             </div>
         </div>
         <div fxLayoutAlign="flex-end">
-            <button type="button" (click)="this.addContactPhone.emit()" mat-raised-button color="accent">
+            <button type="button" (click)="this.addContactPhone.emit()" mat-raised-button color="accent"
+                title="Add More Phone">
                 <mat-icon aria-label="add" class="text-add-button">add</mat-icon><span class="text-add-more">Add More
                     Phone</span>
             </button>

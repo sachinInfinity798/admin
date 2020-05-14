@@ -16,9 +16,11 @@
                 <!-- <i class="material-icons" (click)="onToggleChange($event,row)">
                     {{row.state === 'expanded' ? 'keyboard_arrow_up' : 'keyboard_arrow_down'}}
                 </i> -->
-                <mat-icon id="expand_more" (click)="onToggleChange($event,row)"  #expand_more *ngIf="!row.close"  >
+                <mat-icon id="expand_more" title="Expand More" (click)="onToggleChange($event,row)"  #expand_more
+                    *ngIf="!row.close"  >
                     expand_more</mat-icon>
-                <mat-icon id="expand_less" (click)="onToggleChange($event,row)"  #expand_less *ngIf="row.close">
+                <mat-icon id="expand_less" title="Expand Less" (click)="onToggleChange($event,row)"  #expand_less
+                    *ngIf="row.close">
                     expand_less</mat-icon>
             </mat-cell>
         </ng-container>
@@ -174,9 +176,10 @@
             <app-jobcontacts [contactdetails]="jobForm" (addContactEmail)="addContactEmail()"
                 (addContactPhone)="addContactPhone()"></app-jobcontacts>
             <div fxLayoutAlign="flex-end" mat-dialog-actions>
-                <button mat-raised-button color="warn" (click)="onNoClick()" tabindex="-1">Cancel</button>
+                <button mat-raised-button color="warn" (click)="onNoClick()" tabindex="-1"
+                    title="Cancel">Cancel</button>
                 <button mat-raised-button color="primary" [type]="submit" [disabled]="!jobForm.valid"
-                    [mat-dialog-close]="1" (click)="updatejob()">Update</button>
+                    [mat-dialog-close]="1" (click)="updatejob()" title="Update">Update</button>
 
             </div>
 
@@ -239,9 +242,10 @@
             </div>
 
             <div fxLayoutAlign="flex-end" mat-dialog-actions>
-                <button mat-raised-button color="warn" (click)="onfileClick()" tabindex="-1">Cancel</button>
+                <button mat-raised-button color="warn" (click)="onfileClick()" tabindex="-1"
+                    title="Cancel">Cancel</button>
                 <button mat-raised-button color="primary" [type]="submit" [disabled]="!jobfileForm.valid"
-                    [mat-dialog-close]="1" (click)="updatejobfile()">Update</button>
+                    [mat-dialog-close]="1" (click)="updatejobfile()" title="Update">Update</button>
 
             </div>
         </form>
