@@ -7,7 +7,7 @@ import { FormGroup, FormBuilder } from '@angular/forms'
   styleUrls: ['./jobaddresses.component.scss']
 })
 export class JobaddressesComponent implements OnInit {
-  @Input() addresses: FormGroup;
+  @Input() addresses: FormGroup
   constructor() { }
   ngOnInit() {
   }

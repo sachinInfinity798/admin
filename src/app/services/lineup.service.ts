@@ -170,12 +170,12 @@ export class LineupService {
   clientlist() {
     return this._apollo.watchQuery({
       query: getClient_Q,
-    });
+    })
   }
   managerlist() {
     return this._apollo.watchQuery({
       query: managerlist_Q,
-    });
+    })
   }
   updatefiles(obj, Id) {
     return this._apollo.mutate({

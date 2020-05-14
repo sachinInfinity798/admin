@@ -10,13 +10,13 @@ import { ActivatedRoute, Router } from '@angular/router'
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-  title = 'admin';
+  title = 'admin'
   user: any
 
   constructor(private _login: LoginService, private _permission: NgxPermissionsService, private route: ActivatedRoute,
     private router: Router, ) { }
   ngOnInit() {
-    this.setprofileData();
+    this.setprofileData()
   }
   setprofileData() {
     if (localStorage.getItem('_ur')) {
@@ -42,21 +42,21 @@ export class AppComponent implements OnInit {
           this._permission.loadPermissions(perm)
         }
       } else {
-        this.logout();
+        this.logout()
       }
     },
       (error) => {
-        this.logout();
-        // this.error = error;
+        this.logout()
+        // this.error = error
       }
-    );
+    )
   }
   logout() {
-    sessionStorage.clear();
-    localStorage.clear();
-    this._permission.loadPermissions([]);
-    this._login.setProfile({});
-    this.user = null;
-    this.router.navigate(["/login"]);
+    sessionStorage.clear()
+    localStorage.clear()
+    this._permission.loadPermissions([])
+    this._login.setProfile({})
+    this.user = null
+    this.router.navigate(["/login"])
   }
 }

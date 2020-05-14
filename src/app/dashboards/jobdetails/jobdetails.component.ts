@@ -8,7 +8,7 @@ import { FormGroup, FormBuilder } from '@angular/forms'
 })
 export class JobdetailsComponent implements OnInit {
 
-  @Input() jobdetails: FormGroup;
+  @Input() jobdetails: FormGroup
   constructor() { }
   jobType = [{ name: 'Vessel' }, { name: 'NodeJs' }, { name: 'AngularJs' }, { name: 'PHP' }, { name: 'Java' }, { name: 'IOS' }, { name: 'Finance' }, { name: 'SAP' }]
 

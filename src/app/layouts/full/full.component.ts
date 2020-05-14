@@ -15,7 +15,7 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
     const invalidCtrl = !!(control && control.invalid && control.parent.dirty)
     const invalidParent = !!(control && control.parent && control.parent.invalid && control.parent.dirty)
 
-    return (invalidCtrl || invalidParent);
+    return (invalidCtrl || invalidParent)
   }
 }
 
@@ -46,17 +46,17 @@ export class FullComponent implements OnInit {
     this.passwordForm = this.formBuilder.group({
       password: ['', [Validators.required]],
       confirmPassword: ['']
-    }, { validator: this.checkPasswords });
+    }, { validator: this.checkPasswords })
   }
-  @ViewChild('profileDialog', { static: true }) profileDialog: TemplateRef<any>;
-  private profileDialogRef: MatDialogRef<TemplateRef<any>>;
+  @ViewChild('profileDialog', { static: true }) profileDialog: TemplateRef<any>
+  private profileDialogRef: MatDialogRef<TemplateRef<any>>
   ngOnInit() {
     this._login.profileget.subscribe(userprofile => this.profile = userprofile)
 
 
   }
   checkPasswords(group: FormGroup) {
-    let pass = group.controls.password.value;
+    let pass = group.controls.password.value
     let confirmPass = group.controls.confirmPassword.value
 
     return pass === confirmPass ? null : { notSame: true }
@@ -69,7 +69,7 @@ export class FullComponent implements OnInit {
   }
 
   EditProfile() {
-    this.profileDialogRef = this.dialog.open(this.profileDialog, { disableClose: true });
+    this.profileDialogRef = this.dialog.open(this.profileDialog, { disableClose: true })
     this.profileDialogRef.afterClosed().subscribe(result => {
       if (result === 1) {
       }
@@ -100,7 +100,7 @@ export class FullComponent implements OnInit {
   updatePassword() {
     this.profileDialogRef.close()
     if (this.passwordForm.invalid) {
-      return;
+      return
     }
     console.log('this.passwordForm.invalid', this.passwordForm.value)
     this._login.changePassword(this.profile.id, Md5.hashStr(this.passwordForm.value.password)).subscribe(res => {

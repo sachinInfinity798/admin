@@ -15,7 +15,7 @@ export class AppDateAdapter extends NativeDateAdapter {
             const date = Number(str[0])
             return new Date(year, month, date)
         }
-        const timestamp = typeof value === 'number' ? value : Date.parse(value);
+        const timestamp = typeof value === 'number' ? value : Date.parse(value)
         return isNaN(timestamp) ? null : new Date(timestamp)
     }
     format(date: Date, displayFormat: string): string {

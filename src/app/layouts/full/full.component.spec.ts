@@ -1,25 +1,25 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing'
 
-import { FullComponent } from './full.component';
+import { FullComponent } from './full.component'
 
 describe('FullComponent', () => {
-  let component: FullComponent;
-  let fixture: ComponentFixture<FullComponent>;
+  let component: FullComponent
+  let fixture: ComponentFixture<FullComponent>
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ FullComponent ]
+      declarations: [FullComponent]
     })
-    .compileComponents();
-  }));
+      .compileComponents()
+  }))
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(FullComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+    fixture = TestBed.createComponent(FullComponent)
+    component = fixture.componentInstance
+    fixture.detectChanges()
+  })
 
   it('should create', () => {
-    expect(component).toBeTruthy();
-  });
-});
+    expect(component).toBeTruthy()
+  })
+})

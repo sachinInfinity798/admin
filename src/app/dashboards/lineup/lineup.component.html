@@ -62,10 +62,10 @@
                 <button class="job-icon" mat-button color="primary" title="List Person" (click)="List(row,i)">
                     <mat-icon aria-label="View">date_range</mat-icon>
                 </button>
-                <button class="job-icon" mat-button color="primary" title="Edit JOb" (click)="edit(row,i)">
+                <button class="job-icon" mat-button color="primary" title="Edit Job" (click)="edit(row,i)">
                     <mat-icon aria-label="Edit">edit</mat-icon>
                 </button>
-                <button class="job-icon" mat-button color="warn" (click)="delete(row,i)">
+                <button class="job-icon" mat-button color="warn" (click)="delete(row,i)" title="Delete Job">
                     <mat-icon aria-label="Delete">delete</mat-icon>
                 </button>
             </mat-cell>
@@ -118,8 +118,9 @@
             <ng-container matColumnDef="Account Managers">
                 <mat-header-cell *matHeaderCellDef mat-sort-header>Account Managers</mat-header-cell>
                 <mat-cell *matCellDef="let element">
-                    <ng-container *ngFor="let man of element.jobfile.assignmanagetofiles">
-                        {{man.accountmanager.managername}} ,
+                    <ng-container *ngFor="let man of element.jobfile.assignmanagetofiles;let i=index;">
+                        {{man.accountmanager.managername}} <span
+                            *ngIf="(i+1)!=element.jobfile.assignmanagetofiles.length">,</span>
                         <!-- <br /> -->
                     </ng-container>
                 </mat-cell>
@@ -138,11 +139,12 @@
                 </mat-header-cell>
 
                 <mat-cell *matCellDef="let element; let i=index;">
-                    <button class="job-icon" mat-button color="primary" (click)="editfile(element,i)" title="edit">
+                    <button class="job-icon" mat-button color="primary" (click)="editfile(element,i)" title="Edit File">
                         <mat-icon aria-label="View">edit</mat-icon>
                     </button>
 
-                    <button class="job-icon" mat-button color="warn" (click)="deletefile(subtable,element,row,i)">
+                    <button class="job-icon" mat-button color="warn" (click)="deletefile(subtable,element,row,i)"
+                        title="Delete File">
                         <mat-icon aria-label="Delete">delete</mat-icon>
                     </button>
                 </mat-cell>
@@ -171,10 +173,11 @@
             <app-jobaddresses [addresses]="jobForm"></app-jobaddresses>
             <app-jobcontacts [contactdetails]="jobForm" (addContactEmail)="addContactEmail()"
                 (addContactPhone)="addContactPhone()"></app-jobcontacts>
-            <div mat-dialog-actions>
-                <button mat-button [type]="submit" [disabled]="!jobForm.valid" [mat-dialog-close]="1"
-                    (click)="updatejob()">Update</button>
-                <button mat-button (click)="onNoClick()" tabindex="-1">Cancel</button>
+            <div fxLayoutAlign="flex-end" mat-dialog-actions>
+                <button mat-raised-button color="warn" (click)="onNoClick()" tabindex="-1">Cancel</button>
+                <button mat-raised-button color="primary" [type]="submit" [disabled]="!jobForm.valid"
+                    [mat-dialog-close]="1" (click)="updatejob()">Update</button>
+
             </div>
 
         </form>
@@ -219,9 +222,9 @@
 
             <div class="form">
                 <mat-label>File Status</mat-label>
-                <mat-radio-group aria-label="Gender" class="form-control" formControlName="filestatus">
+                <mat-radio-group aria-label="Gender" class="form-control mtradio" formControlName="filestatus">
                     <mat-radio-button value="Confirmed">Confirmed</mat-radio-button>
-                    <mat-radio-button value="Pending">Pending</mat-radio-button>
+                    <mat-radio-button class="mtbtnradio" value="Pending">Pending</mat-radio-button>
                 </mat-radio-group>
             </div>
             <div class="form">
@@ -235,10 +238,11 @@
                 </mat-form-field>
             </div>
 
-            <div mat-dialog-actions>
-                <button mat-button [type]="submit" [disabled]="!jobfileForm.valid" [mat-dialog-close]="1"
-                    (click)="updatejobfile()">Update</button>
-                <button mat-button (click)="onfileClick()" tabindex="-1">Cancel</button>
+            <div fxLayoutAlign="flex-end" mat-dialog-actions>
+                <button mat-raised-button color="warn" (click)="onfileClick()" tabindex="-1">Cancel</button>
+                <button mat-raised-button color="primary" [type]="submit" [disabled]="!jobfileForm.valid"
+                    [mat-dialog-close]="1" (click)="updatejobfile()">Update</button>
+
             </div>
         </form>
     </div>
