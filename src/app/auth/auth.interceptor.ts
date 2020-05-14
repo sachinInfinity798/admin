@@ -1,4 +1,4 @@
-import { HttpInterceptor, HttpRequest, HttpHandler, HttpUserEvent, HttpEvent } from "@angular/common/http"
+import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent } from "@angular/common/http"
 import { Observable } from "rxjs/Observable"
 import 'rxjs/add/operator/do'
 import { Injectable } from "@angular/core"

@@ -1,19 +1,15 @@
-import { Component, ElementRef, ContentChildren, QueryList, AfterViewInit, AfterContentInit, OnInit, Input, ViewChild, TemplateRef, ChangeDetectorRef } from '@angular/core'
-import { MatCheckboxChange } from '@angular/material'
-import { MatTable, MatTableDataSource } from '@angular/material/table'
+import { Component, ElementRef, ContentChildren, QueryList, OnInit, Input, ViewChild, TemplateRef, ChangeDetectorRef } from '@angular/core'
+import { MatTable } from '@angular/material/table'
 import { ActivatedRoute, Router } from '@angular/router'
 import { LineupService } from '../../services/lineup.service'
 import * as CryptoJS from 'crypto-js'
-import { MAT_DIALOG_DATA, MatDialogRef, MatDialogConfig, MatDialog } from '@angular/material/dialog'
+import { MatDialogRef, MatDialog } from '@angular/material/dialog'
 import { CdkDetailRowDirective } from './cdk-detail-row.directive'
-import { FormBuilder, FormGroupDirective, FormArray, FormGroup, NgForm, FormControl, Validators } from '@angular/forms'
-import { NativeDateAdapter, DateAdapter, MAT_DATE_FORMATS } from "@angular/material/core"
+import { FormBuilder, FormArray, FormGroup, Validators } from '@angular/forms'
 import { lineupType } from './lineup-type'
-import { DataSource } from '@angular/cdk/collections'
 import { PersonComponent } from '../person/person.component'
 import { DeleteComponent } from '../delete/delete.component'
 import { animate, state, style, transition, trigger } from '@angular/animations'
-import { MatPaginator, MatSort } from '@angular/material'
 
 
 
@@ -29,7 +25,7 @@ import { MatPaginator, MatSort } from '@angular/material'
     ]),
   ]
 })
-export class LineupComponent implements OnInit, AfterViewInit {
+export class LineupComponent implements OnInit {
   displayedColumns: string[] = ['JobType', 'Name', 'Location', 'ETA', 'ETC', 'Quantity', 'Options']
   displayedClientColumns: string[] = ['File No', 'Client', 'Quantity', 'Commodity', 'Account Managers', 'File Status', 'Options']
   dataSource: lineupType[] = []
@@ -68,8 +64,6 @@ export class LineupComponent implements OnInit, AfterViewInit {
     this.getuserData()
     this.getJobList()
     this.jobFileFieldGroup()
-  }
-  ngAfterViewInit() {
   }
   getJobList() {
     this._lineup.jobList(this.user.locationID, this.offset, this.limits).subscribe(res => {

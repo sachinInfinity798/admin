@@ -1,11 +1,9 @@
-import { Component, OnInit, Inject, Optional, ViewChild, TemplateRef, ChangeDetectorRef } from '@angular/core'
-import { FormBuilder, FormGroup, NgForm, FormControl, Validators } from '@angular/forms'
+import { Component, OnInit, Inject, Optional, ViewChild, ChangeDetectorRef } from '@angular/core'
 import { PersonService } from '../../services/person.service'
 import { personType } from './person-type'
-import * as CryptoJS from 'crypto-js'
 import { MAT_DIALOG_DATA, MatDialogRef, MatDialog } from '@angular/material/dialog'
 import { DeleteComponent } from '../delete/delete.component'
-import { MatTable, MatTableDataSource } from '@angular/material/table'
+import { MatTable } from '@angular/material/table'
 
 @Component({
   selector: 'app-person',
@@ -21,7 +19,7 @@ export class PersonComponent implements OnInit {
   displayedColumns: string[] = ['Name', 'Address', 'Email', 'ContactNumber', 'Company', 'Options']
   dataSource: personType[] = []
   constructor(private changeDetectorRefs: ChangeDetectorRef, public dialog: MatDialog, public _person: PersonService,
-    private formBuilder: FormBuilder, public dialogRef: MatDialogRef<PersonComponent>, @Optional() @Inject(MAT_DIALOG_DATA) public data: any) {
+    public dialogRef: MatDialogRef<PersonComponent>, @Optional() @Inject(MAT_DIALOG_DATA) public data: any) {
     dialogRef.disableClose = true
     if (this.data.personlist) {
       this.jobId = this.data.jobId

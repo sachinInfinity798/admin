@@ -119,7 +119,7 @@
 
             <ng-container matColumnDef="Account Managers">
                 <mat-header-cell *matHeaderCellDef mat-sort-header>Account Managers</mat-header-cell>
-                <mat-cell *matCellDef="let element">
+                <mat-cell *matCellDef="let element" style="display: flow-root">
                     <ng-container *ngFor="let man of element.jobfile.assignmanagetofiles;let i=index;">
                         {{man.accountmanager.managername}} <span
                             *ngIf="(i+1)!=element.jobfile.assignmanagetofiles.length">,</span>

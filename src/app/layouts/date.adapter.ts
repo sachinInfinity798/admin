@@ -1,7 +1,4 @@
 import { NativeDateAdapter } from "@angular/material/core"
-import { DateAdapter } from "@angular/material/core"
-import { MAT_DATE_FORMATS } from "@angular/material/core"
-import { MatDateFormats } from "@angular/material/core"
 import { Injectable } from '@angular/core'
 
 @Injectable()

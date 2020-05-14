@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core'
 import { HttpClient, HttpHeaders } from '@angular/common/http'
 import { Apollo } from 'apollo-angular'
 import gql from 'graphql-tag'
-import { Md5 } from 'ts-md5/dist/md5'
 import { Observable, of, BehaviorSubject } from 'rxjs'
 import { DatePipe } from '@angular/common'
 const personlist_M = gql`mutation listQueries($personId: String!) {

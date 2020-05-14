@@ -2,9 +2,9 @@ import { Component, OnInit, ViewChild, TemplateRef } from '@angular/core'
 import { NgxPermissionsService } from 'ngx-permissions'
 import { ActivatedRoute, Router } from '@angular/router'
 import { LoginService } from '../../services/login.service'
-import { MAT_DIALOG_DATA, MatDialogRef, MatDialog } from '@angular/material/dialog'
+import { MatDialogRef, MatDialog } from '@angular/material/dialog'
 import { FormBuilder, FormGroupDirective, FormGroup, NgForm, FormControl, Validators } from '@angular/forms'
-import { NativeDateAdapter, DateAdapter, MAT_DATE_FORMATS } from "@angular/material/core"
+import { DateAdapter, MAT_DATE_FORMATS } from "@angular/material/core"
 import { AppDateAdapter, APP_DATE_FORMATS } from '../date.adapter'
 import { Md5 } from 'ts-md5/dist/md5'
 import * as CryptoJS from 'crypto-js'
