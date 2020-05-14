@@ -146,7 +146,6 @@ export class LineupComponent implements OnInit {
             this._lineup.getjobBox.subscribe(resut => {
               jobarry = resut
             })
-            //let index = jobarry.findIndex(a => a.id == row.id)
             if (index > -1) { jobarry.splice(index, 1) }
             this._lineup.setjobBox(jobarry)
             this.isSuccess = true
@@ -394,7 +393,7 @@ export class LineupComponent implements OnInit {
       }
     })
   }
-  deletefile(subtable, element, row, index) {
+  deletefile(element, row, index) {
     let dialogRef = this.dialog.open(DeleteComponent, {
       data: { id: element.id, text: 'File ' + element.jobfile.fileNo }
     })
@@ -408,7 +407,6 @@ export class LineupComponent implements OnInit {
             })
             let jobindex = jobarry.findIndex(a => a.id == row.id)
             if (jobindex > -1 && index > -1) { jobarry[jobindex].assignfilelists.splice(index, 1) }
-            if (index > -1) { row.assignfilelists.splice(index, 1) }
             this._lineup.setjobBox(jobarry)
             this.refreceTable()
             element.show = true

@@ -49,7 +49,6 @@ export class PersonComponent implements OnInit {
             this._person.getpersonBox.subscribe(resut => {
               personarry = resut
             })
-            //let index = personarry.findIndex(a => a.id == row.id)
             if (index > -1) { personarry.splice(index, 1) }
             this._person.setpersonBox(personarry)
             this.refreceTable()
